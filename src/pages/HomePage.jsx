@@ -1,30 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import MovieService from '../service/movieService'
+import { useEffect, useState } from "react";
+import MovieService from "../service/MovieService";
+import CardComponent from "../components/CardComponent";
 
 function HomePage() {
+  const [allMovies, setAllMovies] = useState([]);
 
-    const [allMovies, setAllMovies] = useState([]);
-
-    useEffect(() => {
-        MovieService.getAllMovies()
-        .then(res => {
-            setAllMovies(res.data.results)
-            console.log(res);
-        }
-        )
-        .catch(err => console.log(err))
-    },[])
+  useEffect(() => {
+    MovieService.getAllMovies()
+      .then((res) => {
+        setAllMovies(res.data.results);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
-    <div>
-      {allMovies.map((movie) => (
-        <div key={movie.id}>
-            <p>{movie.title}</p>
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="" />
-        </div>
-      ))}
+    <div className="bg-mainBlue pt-[40px]">
+      <div className="flex flex-wrap justify-center gap-6 w-[90%] mx-auto">
+        {allMovies.map((movie, index) => (
+          <CardComponent movie={movie} key={index} />
+        ))}
+      </div>
     </div>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;

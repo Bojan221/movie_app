@@ -10,7 +10,14 @@ class MovieService {
             language: "en-US",
             page: 1,
         }
-    })
+    });
+
+     static getMovieById = (id) => axios.get(`/movie/${id}/videos`, {
+        params: {
+            api_key: key,
+            language: "en-US"
+        }
+    });
 }
 
 export default MovieService;
